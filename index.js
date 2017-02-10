@@ -199,10 +199,11 @@
             ]
         }
     ];
-    var N = 20,
-        H = 15,
+    var N = fakeData.length,
+        H = fakeData.length-5,
         generator = d3.randomUniform(1, H - 2),
-        color = d3.scaleSequential(d3.interpolateViridis).domain([0, H + 5]),
+        color = d3.scaleSequential(d3.interpolateViridis).domain([0, H + 5]);
+    console.log(color)
         // areaColor = color(H + 5),
         data = d3.range(0, N).map(function () {
             return generator();
@@ -228,7 +229,7 @@
 
     paper.append('g')
         .selectAll('rect')
-        .data(data)
+        .data(fakeData)
         .enter()
         .append("rect")
         .attr("transform", function (d, i) {
@@ -241,8 +242,9 @@
             return height - y(d);
         })
         .attr("width", barWidth - 1)
-        .attr("fill", function (d) {
-            return color(d);
+        .attr("fill", function (d,i) {
+            console.log(i)
+            return color(i);
         })
         .attr("stroke", '#fff')
         .attr("stroke-width", 1)
